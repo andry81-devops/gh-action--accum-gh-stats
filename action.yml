@@ -1,3 +1,13 @@
+# CAUTION:
+#   Not all features of a generic GitHub action is supported: https://github.com/actions/runner/issues/646
+#
+# **What does Composite Run Steps Not Support**
+#
+# We don't support setting conditionals, continue-on-error, timeout-minutes, "uses", and secrets on individual steps within a composite action right now.
+#
+# (Note: we do support these attributes being set in workflows for a step that uses a composite run steps action)
+#
+
 name: accum-stats
 description: 'GitHub repository statistic request and accumulation'
 
@@ -96,6 +106,12 @@ runs:
           https://api.github.com/repos/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}/${{ inputs.stat_entity_path }} \
           > "$GITHUB_WORKSPACE/gh-stats/$stats_json"
 
+    # NOTE:
+    #   Several features below are commented out because is not supported in a composite action runnner:
+    #     * conditionals
+    #     * continue-on-error
+    #
+
     - name: accumulate ${{ inputs.stat_entity_path }}
       id: accum-stats
       shell: bash
@@ -107,26 +123,26 @@ runs:
         $GITHUB_WORKSPACE/gh-workflow/bash/github/accum-stats.sh
         # caution: no operation after that line if non zero exit code happens above
 
-    - name: allocate error and warning variables
-      if: steps.accum-stats.outcome != 'success'
-      shell: bash
-      run: |
-        # allocate variables here to make it visible in the next step
-        [[ -f "$write_error_to_file" ]] && echo "error_string<<EOF" >> $GITHUB_ENV
-        [[ -f "$write_error_to_file" ]] && cat "$write_error_to_file" >> $GITHUB_ENV
-        [[ -f "$write_error_to_file" ]] && echo "EOF" >> $GITHUB_ENV
-        [[ -f "$write_warning_to_file" ]] && echo "warning_string<<EOF" >> $GITHUB_ENV
-        [[ -f "$write_warning_to_file" ]] && cat "$write_warning_to_file" >> $GITHUB_ENV
-        [[ -f "$write_warning_to_file" ]] && echo "EOF" >> $GITHUB_ENV
-        exit 0
+    #- name: allocate error and warning variables
+    #  if: steps.accum-stats.outcome != 'success'
+    #  shell: bash
+    #  run: |
+    #    # allocate variables here to make it visible in the next step
+    #    [[ -f "$write_error_to_file" ]] && echo "error_string<<EOF" >> $GITHUB_ENV
+    #    [[ -f "$write_error_to_file" ]] && cat "$write_error_to_file" >> $GITHUB_ENV
+    #    [[ -f "$write_error_to_file" ]] && echo "EOF" >> $GITHUB_ENV
+    #    [[ -f "$write_warning_to_file" ]] && echo "warning_string<<EOF" >> $GITHUB_ENV
+    #    [[ -f "$write_warning_to_file" ]] && cat "$write_warning_to_file" >> $GITHUB_ENV
+    #    [[ -f "$write_warning_to_file" ]] && echo "EOF" >> $GITHUB_ENV
+    #    exit 0
 
-    - name: print errors and warnings
-      if: steps.accum-stats.outcome != 'success'
-      shell: bash
-      run: |
-        [[ -n "$error_string" ]] && echo "::error ::$error_string"
-        [[ -n "$warning_string" ]] && echo "::warning ::$warning_string"
-        exit 255
+    #- name: print errors and warnings
+    #  if: steps.accum-stats.outcome != 'success'
+    #  shell: bash
+    #  run: |
+    #    [[ -n "$error_string" ]] && echo "::error ::$error_string"
+    #    [[ -n "$warning_string" ]] && echo "::warning ::$warning_string"
+    #    exit 255
 
     - name: commit gh-stats
       shell: bash
