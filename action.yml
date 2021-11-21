@@ -1,0 +1,133 @@
+name: accum-stats
+description: 'GitHub repository statistic request and accumulation'
+
+inputs:
+  stat_repo_owner:
+    description: 'Owner of a repository used to request the statistic'
+    required: true
+
+  stat_repo:
+    description: 'Repository name used to request the statistic'
+    required: true
+
+  stat_entity_path:
+    description: 'Statistic entity path to request'
+    required: true
+    # examples:
+    # - traffic/clones
+    # - traffic/views
+
+  stat_repo_read_token:
+    description: 'PAT token to a repository used to request the statistic with statistic read access rights'
+    required: true
+
+  stats_list_key:
+    description: 'A list key containing GitHub repository statistic'
+    required: true
+    # examples:
+    # - clones
+    # - views
+
+  output_repo_owner:
+    description: 'Owner of a repository used to output the statistic'
+    required: true
+
+  output_repo:
+    description: 'Repository name used to output the statistic'
+    required: true
+
+  output_repo_dir:
+    description: 'Output repository relative directory path to store requested and accumulated statistic'
+    required: true
+    # examples:
+    # - traffic/clones
+    # - traffic/views
+
+  output_repo_write_token:
+    description: 'PAT token to the output repository with write/push access rights'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    # step is required to workaround variable expansion in variables
+    - name: declare dependent variables
+      run: |
+        echo "stats_dir=${{ inputs.output_repo_dir }}" >> $GITHUB_ENV
+        echo "stats_json=${{ inputs.output_repo_dir }}/latest.json" >> $GITHUB_ENV
+        echo "stats_list_key=${{ inputs.stats_list_key }}" >> $GITHUB_ENV
+
+    - name: allocate directories
+      run: |
+        mkdir $GITHUB_WORKSPACE/gh-workflow $GITHUB_WORKSPACE/gh-stats
+        echo "WORKFLOW_TEMPDIR=$(mktemp -d)" >> $GITHUB_ENV
+
+    - name: allocate variables
+      run: |
+        echo "write_error_to_file=$WORKFLOW_TEMPDIR/err.log" >> $GITHUB_ENV
+        echo "write_warning_to_file=$WORKFLOW_TEMPDIR/warn.log" >> $GITHUB_ENV
+
+    - name: checkout gh-workflow
+      uses: actions/checkout@v2
+      with:
+        repository: '${{ inputs.stat_repo_owner }}/gh-workflow'
+        path: gh-workflow
+
+    - name: checkout gh-stats
+      uses: actions/checkout@v2
+      with:
+        repository: '${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}'
+        path: gh-stats
+        token: ${{ inputs.output_repo_write_token }}
+
+    - name: request ${{ inputs.stat_entity_path }} json
+      run: |
+        curl --user "${{ inputs.stat_repo_owner }}:${{ inputs.stat_repo_read_token }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}/${{ inputs.stat_entity_path }} \
+          > "$GITHUB_WORKSPACE/gh-stats/$stats_json"
+
+    - name: accumulate ${{ inputs.stat_entity_path }}
+      id: accum-stats
+      shell: bash
+      continue-on-error: true
+      run: |
+        cd $GITHUB_WORKSPACE/gh-stats
+        cat "$stats_json"
+        chmod ug+x $GITHUB_WORKSPACE/gh-workflow/bash/github/accum-stats.sh
+        $GITHUB_WORKSPACE/gh-workflow/bash/github/accum-stats.sh
+        # caution: no operation after that line if non zero exit code happens above
+
+    - name: allocate error and warning variables
+      if: steps.accum-stats.outcome != 'success'
+      run: |
+        # allocate variables here to make it visible in the next step
+        [[ -f "$write_error_to_file" ]] && echo "error_string<<EOF" >> $GITHUB_ENV
+        [[ -f "$write_error_to_file" ]] && cat "$write_error_to_file" >> $GITHUB_ENV
+        [[ -f "$write_error_to_file" ]] && echo "EOF" >> $GITHUB_ENV
+        [[ -f "$write_warning_to_file" ]] && echo "warning_string<<EOF" >> $GITHUB_ENV
+        [[ -f "$write_warning_to_file" ]] && cat "$write_warning_to_file" >> $GITHUB_ENV
+        [[ -f "$write_warning_to_file" ]] && echo "EOF" >> $GITHUB_ENV
+        exit 0
+
+    - name: print errors and warnings
+      if: steps.accum-stats.outcome != 'success'
+      run: |
+        [[ -n "$error_string" ]] && echo "::error ::$error_string"
+        [[ -n "$warning_string" ]] && echo "::warning ::$warning_string"
+        exit 255
+
+    - name: commit gh-stats
+      run: |
+        cd $GITHUB_WORKSPACE/gh-stats
+        git add .
+        git config --global user.name "GitHub Action"
+        git config --global user.email "action@github.com"
+        git commit -m "Automated update: ${{ inputs.stat_entity_path }}"
+
+    - name: push gh-stats
+      uses: ad-m/github-push-action@master
+      with:
+        repository: ${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}
+        directory: gh-stats
+        github_token: ${{ inputs.output_repo_write_token }}
