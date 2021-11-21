@@ -99,7 +99,7 @@ runs:
     - name: accumulate ${{ inputs.stat_entity_path }}
       id: accum-stats
       shell: bash
-      continue-on-error: true
+      #continue-on-error: true
       run: |
         cd $GITHUB_WORKSPACE/gh-stats
         cat "$stats_json"
