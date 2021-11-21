@@ -56,17 +56,20 @@ runs:
   steps:
     # step is required to workaround variable expansion in variables
     - name: declare dependent variables
+      shell: bash
       run: |
         echo "stats_dir=${{ inputs.output_repo_dir }}" >> $GITHUB_ENV
         echo "stats_json=${{ inputs.output_repo_dir }}/latest.json" >> $GITHUB_ENV
         echo "stats_list_key=${{ inputs.stats_list_key }}" >> $GITHUB_ENV
 
     - name: allocate directories
+      shell: bash
       run: |
         mkdir $GITHUB_WORKSPACE/gh-workflow $GITHUB_WORKSPACE/gh-stats
         echo "WORKFLOW_TEMPDIR=$(mktemp -d)" >> $GITHUB_ENV
 
     - name: allocate variables
+      shell: bash
       run: |
         echo "write_error_to_file=$WORKFLOW_TEMPDIR/err.log" >> $GITHUB_ENV
         echo "write_warning_to_file=$WORKFLOW_TEMPDIR/warn.log" >> $GITHUB_ENV
@@ -86,6 +89,7 @@ runs:
         token:      ${{ inputs.output_repo_write_token }}
 
     - name: request ${{ inputs.stat_entity_path }} json
+      shell: bash
       run: |
         curl --user "${{ inputs.stat_repo_owner }}:${{ inputs.stat_repo_read_token }}" \
           -H "Accept: application/vnd.github.v3+json" \
@@ -105,6 +109,7 @@ runs:
 
     - name: allocate error and warning variables
       if: steps.accum-stats.outcome != 'success'
+      shell: bash
       run: |
         # allocate variables here to make it visible in the next step
         [[ -f "$write_error_to_file" ]] && echo "error_string<<EOF" >> $GITHUB_ENV
@@ -117,12 +122,14 @@ runs:
 
     - name: print errors and warnings
       if: steps.accum-stats.outcome != 'success'
+      shell: bash
       run: |
         [[ -n "$error_string" ]] && echo "::error ::$error_string"
         [[ -n "$warning_string" ]] && echo "::warning ::$warning_string"
         exit 255
 
     - name: commit gh-stats
+      shell: bash
       run: |
         cd $GITHUB_WORKSPACE/gh-stats
         git add .
