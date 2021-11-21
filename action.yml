@@ -36,6 +36,10 @@ inputs:
     description: 'Repository name used to output the statistic'
     required: true
 
+  output_repo_branch:
+    description: 'Repository branch used to output the statistic'
+    default: master
+
   output_repo_dir:
     description: 'Output repository relative directory path to store requested and accumulated statistic'
     required: true
@@ -70,15 +74,16 @@ runs:
     - name: checkout gh-workflow
       uses: actions/checkout@v2
       with:
-        repository: '${{ inputs.stat_repo_owner }}/gh-workflow'
-        path: gh-workflow
+        repository: ${{ inputs.stat_repo_owner }}/gh-workflow
+        path:       gh-workflow
 
     - name: checkout gh-stats
       uses: actions/checkout@v2
       with:
-        repository: '${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}'
-        path: gh-stats
-        token: ${{ inputs.output_repo_write_token }}
+        repository: ${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}
+        ref:        ${{ inputs.output_repo_branch }}
+        path:       gh-stats
+        token:      ${{ inputs.output_repo_write_token }}
 
     - name: request ${{ inputs.stat_entity_path }} json
       run: |
@@ -128,6 +133,7 @@ runs:
     - name: push gh-stats
       uses: ad-m/github-push-action@master
       with:
-        repository: ${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}
-        directory: gh-stats
+        repository:   ${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}
+        branch:       ${{ inputs.output_repo_branch }}
+        directory:    gh-stats
         github_token: ${{ inputs.output_repo_write_token }}
