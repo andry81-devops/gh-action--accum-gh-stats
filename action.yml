@@ -8,7 +8,7 @@
 # (Note: we do support these attributes being set in workflows for a step that uses a composite run steps action)
 #
 
-name: accum-stats
+name: accum-gh-stats
 description: 'GitHub repository statistic request and accumulation'
 
 inputs:
