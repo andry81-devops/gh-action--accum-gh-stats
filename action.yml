@@ -38,6 +38,11 @@ inputs:
     # - clones
     # - views
 
+  curl_flags:
+    description: 'additional curl flags'
+    # example:
+    #   `-H 'Cache-Control: no-cache'`
+
   output_repo_owner:
     description: 'Owner of a repository used to output the statistic'
     required: true
@@ -102,6 +107,7 @@ runs:
       shell: bash
       run: |
         curl --user "${{ inputs.stat_repo_owner }}:${{ inputs.stat_repo_read_token }}" \
+          ${{ inputs.curl_flags }} \
           -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}/${{ inputs.stat_entity_path }} \
           > "$GITHUB_WORKSPACE/gh-stats/$stats_json"
