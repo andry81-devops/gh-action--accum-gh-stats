@@ -1,0 +1,6 @@
+2021.11.27:
+* new: `README.md` readme file
+* new: `changelog.txt` changelog file
+* new: `userlog.txt` userlog file
+* new: `license.txt` license file
+* changed: action.yml: added `deps_repo_owner` parameter to specifically address dependent repositories
