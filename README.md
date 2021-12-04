@@ -53,7 +53,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
       - uses: {{REPO_OWNER}}/gh-action--accum-gh-stats@master
         with:
           deps_repo_owner:          {{REPO_OWNER}}
@@ -90,7 +89,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
       - uses: {{REPO_OWNER}}/gh-action--accum-gh-stats@master
         with:
           deps_repo_owner:          {{REPO_OWNER}}

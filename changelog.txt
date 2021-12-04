@@ -1,4 +1,7 @@
 2021.12.05:
+* changed: README.md: code cleanup
+
+2021.12.05:
 * changed: action.yml: removed usage of the `write_error_to_file` and `write_warning_to_file` environment variables as not required anymore
 
 2021.11.27:
