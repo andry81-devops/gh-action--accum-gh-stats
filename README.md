@@ -113,6 +113,8 @@ jobs:
 
 > :warning: You must use different values for `deps_repo_owner`, `stat_repo_owner` and `output_repo_owner` if respective repositories actually under different repository owners.
 
+> :information_source: See <a href="https://github.com/andry81/github-accum-stats/blob/master/README.md#reuse">REUSE</a> section for details if you have multiple repositories and want to store all workflow scripts in a single repository.
+
 ## Dependencies<a name="dependecies"></a>
 
 * https://github.com/andry81/gh-workflow

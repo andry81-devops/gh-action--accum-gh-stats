@@ -1,4 +1,7 @@
 2021.12.05:
+* changed: README.md: workflow reuse details
+
+2021.12.05:
 * changed: README.md: code cleanup
 
 2021.12.05:
