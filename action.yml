@@ -126,6 +126,14 @@ runs:
         $GITHUB_WORKSPACE/gh-workflow/bash/github/accum-stats.sh
         # caution: no operation after that line if non zero exit code happens above
 
+    - name: generate commit message suffix
+      shell: bash
+      run: |
+        echo "COMMIT_MESSAGE_SUFFIX=" >> $GITHUB_ENV
+        if [[ -n "$STATS_UNIQUES_INC$STATS_COUNT_INC$STATS_UNIQUES_DEC$STATS_COUNT_DEC" ]]; then
+          echo "COMMIT_MESSAGE_SUFFIX= | unq all: +${STATS_UNIQUES_INC:-0} +${STATS_COUNT_INC:-0} / -${STATS_UNIQUES_DEC:-0} -${STATS_COUNT_DEC:-0}" >> $GITHUB_ENV
+        fi
+
     - name: commit gh-stats
       shell: bash
       run: |
@@ -133,7 +141,7 @@ runs:
         git add .
         git config --global user.name "GitHub Action"
         git config --global user.email "action@github.com"
-        git commit -m "Automated update: ${{ inputs.stat_entity_path }}"
+        git commit -m "Automated update: ${{ inputs.stat_entity_path }}$COMMIT_MESSAGE_SUFFIX"
 
     - name: push gh-stats
       uses: ad-m/github-push-action@master

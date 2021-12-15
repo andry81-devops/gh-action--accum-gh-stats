@@ -1,3 +1,6 @@
+2021.12.15:
+* changed: action.yml: commit message suffix with changes in statistic
+
 2021.12.05:
 * changed: README.md: workflow reuse details
 
