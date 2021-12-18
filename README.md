@@ -3,7 +3,7 @@
 • <a href="https://github.com/andry81/gh-action--accum-gh-stats/blob/master/changelog.txt">Changelog</a>
 • <a href="#dependecies">Dependencies</a>
 • <a href="#known_issues">Known issues</a>
-• <a href="#copyright-and-license"><img src="https://github.com/andry81/andry81/raw/main/badges/mit-license.svg" valign="middle" alt="copyright and license" />&nbsp;Copyright and License</a>
+• <a href="#copyright-and-license"><img src="https://github.com/andry81/andry81/raw/master/badges/mit-license.svg" valign="middle" alt="copyright and license" />&nbsp;Copyright and License</a>
 </p>
 
 <h4 align="center">GitHub composite action to request and accumulate both the clones and/or the views statistic.<br/>

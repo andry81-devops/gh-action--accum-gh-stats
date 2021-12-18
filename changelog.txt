@@ -1,3 +1,6 @@
+2021.12.18:
+* fixed: README.md: badges fixup
+
 2021.12.15:
 * changed: action.yml: commit message suffix with changes in statistic
 
