@@ -1,4 +1,7 @@
 2021.12.24:
+* changed: README.md: readme update
+
+2021.12.24:
 * new: README.md: repo size, text lines, clones, views, commits since and etc badges
 
 2021.12.18:
