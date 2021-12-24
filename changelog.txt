@@ -1,3 +1,6 @@
+2021.12.24:
+* new: README.md: repo size, text lines, clones, views, commits since and etc badges
+
 2021.12.18:
 * fixed: README.md: badges fixup
 
