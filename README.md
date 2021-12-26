@@ -71,7 +71,7 @@ Tutorial to use with: https://github.com/andry81/github-accum-stats</h4>
 
 ## Examples:
 
-`./github/workflows/accum-gh-clone-stats.yml`:
+`.github/workflows/accum-gh-clone-stats.yml`:
 
 ```yml
 name: GitHub clones counter for 14 days at every 8 hours and clones accumulator
@@ -107,7 +107,7 @@ jobs:
           output_repo_write_token:  ${{ secrets.WRITE_STATS_TOKEN }}
 ```
 
-`./github/workflows/accum-gh-view-stats.yml`:
+`.github/workflows/accum-gh-view-stats.yml`:
 
 ```yml
 name: GitHub views counter for 14 days at every 8 hours and views accumulator
