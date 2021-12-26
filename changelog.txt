@@ -1,4 +1,7 @@
 2021.12.26:
+* changed: README.md, action.yml: better description to hit more search keywords from the GitHub market search bar
+
+2021.12.26:
 * fixed: README.md: typo
 
 2021.12.24:

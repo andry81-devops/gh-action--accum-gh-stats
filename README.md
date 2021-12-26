@@ -38,7 +38,7 @@
 • <a href="#copyright-and-license"><img src="https://github.com/andry81/andry81/raw/master/badges/mit-license.svg" valign="middle" alt="copyright and license" />&nbsp;Copyright and License</a>
 </p>
 
-<h4 align="center">GitHub composite action to request and accumulate both the clones and/or the views statistic.<br/>
+<h4 align="center">GitHub composite action to request and accumulate a repository clones and/or views statistic.<br/>
 <br/>
 Tutorial to use with: https://github.com/andry81/github-accum-stats</h4>
 
