@@ -111,7 +111,7 @@ runs:
           > "$GITHUB_WORKSPACE/gh-stats/$stats_json"
 
     # NOTE:
-    #   Several features below are commented out because is not supported in a composite action runnner:
+    #   Several features below is not supported in a composite action runnner:
     #     * conditionals
     #     * continue-on-error
     #
