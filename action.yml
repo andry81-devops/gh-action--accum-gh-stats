@@ -73,6 +73,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: head annotations
+      shell: bash
+      run: |
+        echo "::notice ::stat repo: https://github.com/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}"
+        echo "::notice ::output repo dir: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/tree/${{ inputs.output_repo_branch }}/${{ inputs.output_repo_dir }}"
+
     # step is required to workaround variable expansion in variables
     - name: declare dependent variables
       shell: bash
