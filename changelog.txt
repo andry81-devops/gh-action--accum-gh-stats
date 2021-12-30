@@ -1,4 +1,7 @@
 2021.12.30:
+* new: action.yml: additionally print statistics change into pipeline
+
+2021.12.30:
 * changed: action.yml: cleanup
 
 2021.12.26:
