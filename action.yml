@@ -126,20 +126,9 @@ runs:
         $GITHUB_WORKSPACE/gh-workflow/bash/github/accum-stats.sh
         # caution: no operation after that line if non zero exit code happens above
 
-    - name: generate messages
-      shell: bash
-      run: |
-        echo "MINIDIFF_PRINT_MESSAGE=" >> $GITHUB_ENV
-        echo "COMMIT_MESSAGE_SUFFIX=" >> $GITHUB_ENV
-        if [[ -n "$STATS_UNIQUES_INC$STATS_COUNT_INC$STATS_UNIQUES_DEC$STATS_COUNT_DEC" ]]; then
-          echo "MINIDIFF_PRINT_MESSAGE=unq all: +${STATS_UNIQUES_INC:-0} +${STATS_COUNT_INC:-0} / -${STATS_UNIQUES_DEC:-0} -${STATS_COUNT_DEC:-0}" >> $GITHUB_ENV
-          echo "COMMIT_MESSAGE_SUFFIX= | unq all: +${STATS_UNIQUES_INC:-0} +${STATS_COUNT_INC:-0} / -${STATS_UNIQUES_DEC:-0} -${STATS_COUNT_DEC:-0}" >> $GITHUB_ENV
-        fi
-
     - name: commit gh-stats
       shell: bash
       run: |
-        echo "::notice ::diff: $MINIDIFF_PRINT_MESSAGE"
         cd $GITHUB_WORKSPACE/gh-stats
         git add .
         git config --global user.name "GitHub Action"

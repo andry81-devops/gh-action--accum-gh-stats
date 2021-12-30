@@ -1,4 +1,8 @@
 2021.12.30:
+* changed: action.yml: removed print statistics change into pipeline as bugged in the current GitHub implementation (breaks notification prints from a script)
+* changed: action.yml: moved `COMMIT_MESSAGE_SUFFIX` variable creation into workflow scripts
+
+2021.12.30:
 * new: action.yml: additionally print statistics change into pipeline
 
 2021.12.30:
