@@ -1,3 +1,6 @@
+2021.12.31:
+* changed: action.yml: head annotations workaround through `gh-workflow` script
+
 2021.12.30:
 * new: action.yml: print stat repository url and output repository directory url into pipeline
 

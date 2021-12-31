@@ -73,12 +73,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: head annotations
-      shell: bash
-      run: |
-        echo "::notice ::stat repo: https://github.com/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}"
-        echo "::notice ::output repo dir: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/tree/${{ inputs.output_repo_branch }}/${{ inputs.output_repo_dir }}"
-
     # step is required to workaround variable expansion in variables
     - name: declare dependent variables
       shell: bash
@@ -98,6 +92,14 @@ runs:
       with:
         repository: ${{ inputs.deps_repo_owner }}/gh-workflow
         path:       gh-workflow
+
+    - name: head annotations
+      shell: bash
+      run: |
+        chmod ug+x $GITHUB_WORKSPACE/gh-workflow/bash/github/print-notice.sh
+        $GITHUB_WORKSPACE/gh-workflow/bash/github/print-notice.sh \
+          "stat repo: https://github.com/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}" \
+          "output repo dir: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/tree/${{ inputs.output_repo_branch }}/${{ inputs.output_repo_dir }}"
 
     - name: checkout gh-stats
       uses: actions/checkout@v2

@@ -2,6 +2,19 @@
 
 > :warning: to find all changes use [changelog.txt](https://github.com/andry81/gh-action--accum-gh-stats/blob/master/changelog.txt) file in a directory
 
+## 2021.12.31:
+* changed: action.yml: head annotations workaround through `gh-workflow` script
+
+## 2021.12.30:
+* new: action.yml: print stat repository url and output repository directory url into pipeline
+
+## 2021.12.30:
+* changed: action.yml: removed print statistics change into pipeline as bugged in the current GitHub implementation (breaks notification prints from a script)
+* changed: action.yml: moved `COMMIT_MESSAGE_SUFFIX` variable creation into workflow scripts
+
+## 2021.12.30:
+* new: action.yml: additionally print statistics change into pipeline
+
 ## 2021.12.15:
 * changed: action.yml: commit message suffix with changes in statistic
 
