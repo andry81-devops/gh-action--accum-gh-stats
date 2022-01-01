@@ -1,4 +1,7 @@
 2022.01.01:
+* changed: README.md: readme update
+
+2022.01.01:
 * new: action.yml: added `deps_repo_branch` parameter to use specific repository branch as dependency
 * new: action.yml: added `deps_repo_read_token` parameter to use specific read token for repository as dependency
 

@@ -90,6 +90,8 @@ jobs:
       - uses: {{REPO_OWNER}}/gh-action--accum-gh-stats@master
         with:
           deps_repo_owner:          {{REPO_OWNER}}
+          deps_repo_branch:         master
+          deps_repo_read_token:     ${{ github.token }}
 
           stat_repo_owner:          {{REPO_OWNER}}
           stat_repo:                {{REPO}}
@@ -126,6 +128,8 @@ jobs:
       - uses: {{REPO_OWNER}}/gh-action--accum-gh-stats@master
         with:
           deps_repo_owner:          {{REPO_OWNER}}
+          deps_repo_branch:         master
+          deps_repo_read_token:     ${{ github.token }}
 
           stat_repo_owner:          {{REPO_OWNER}}
           stat_repo:                {{REPO}}
