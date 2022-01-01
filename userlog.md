@@ -2,6 +2,10 @@
 
 > :warning: to find all changes use [changelog.txt](https://github.com/andry81/gh-action--accum-gh-stats/blob/master/changelog.txt) file in a directory
 
+## 2022.01.01:
+* new: action.yml: use `GH_WORKFLOW_ROOT` variable to include `gh-workflow` shell scripts as dependencies
+* changed: action.yml: removed relative paths usage
+
 ## 2021.12.31:
 * changed: action.yml: head annotations workaround through `gh-workflow` script
 
