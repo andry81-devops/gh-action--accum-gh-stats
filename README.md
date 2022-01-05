@@ -103,7 +103,7 @@ jobs:
             -H 'Cache-Control: no-cache'
 
           output_repo_owner:        {{REPO_OWNER}}
-          output_repo:              {{REPO}--gh-stats
+          output_repo:              {{REPO}}--gh-stats
           output_repo_branch:       master
           output_repo_dir:          traffic/clones
           output_repo_write_token:  ${{ secrets.WRITE_STATS_TOKEN }}
@@ -141,7 +141,7 @@ jobs:
             -H 'Cache-Control: no-cache'
 
           output_repo_owner:        {{REPO_OWNER}}
-          output_repo:              {{REPO}--gh-stats
+          output_repo:              {{REPO}}--gh-stats
           output_repo_branch:       master
           output_repo_dir:          traffic/views
           output_repo_write_token:  ${{ secrets.WRITE_STATS_TOKEN }}
