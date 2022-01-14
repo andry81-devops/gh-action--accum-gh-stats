@@ -2,6 +2,9 @@
 
 > :warning: to find all changes use [changelog.txt](https://github.com/andry81/gh-action--accum-gh-stats/blob/master/changelog.txt) file in a directory
 
+## 2022.01.13:
+* new: action.yml: workflow script execution time in the Automated Update commit message
+
 ## 2022.01.01:
 * new: action.yml: added `deps_repo_branch` parameter to use specific repository branch as dependency
 * new: action.yml: added `deps_repo_read_token` parameter to use specific read token for repository as dependency

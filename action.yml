@@ -151,7 +151,7 @@ runs:
         git add .
         git config --global user.name "GitHub Action"
         git config --global user.email "action@github.com"
-        git commit -m "Automated update: ${{ inputs.stat_entity_path }}$COMMIT_MESSAGE_SUFFIX"
+        git commit -m "A/U: $STATS_DATE_UTC: ${{ inputs.stat_entity_path }}$COMMIT_MESSAGE_SUFFIX"
 
     - name: push gh-stats
       uses: ad-m/github-push-action@master
