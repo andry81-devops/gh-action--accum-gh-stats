@@ -1,3 +1,6 @@
+2022.02.10:
+* fixed: README.md: links update
+
 2022.01.13:
 * new: action.yml: workflow script execution time in the Automated Update commit message
 
