@@ -2,6 +2,10 @@
 
 > :warning: to find all changes use [changelog.txt](https://github.com/andry81-devops/gh-action--accum-gh-stats/blob/master/changelog.txt) file in a directory
 
+## 2022.03.23:
+* new: action.yml: `env` input parameter to explicitly declare global environment variables
+* new: action.yml: `changelog_dir` variable usage is added
+
 ## 2022.01.13:
 * new: action.yml: workflow script execution time in the Automated Update commit message
 

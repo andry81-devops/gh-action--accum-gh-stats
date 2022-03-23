@@ -1,3 +1,8 @@
+2022.03.23:
+* new: action.yml: `env` input parameter to explicitly declare global environment variables
+* new: action.yml: `changelog_dir` variable usage is added
+* changed: README.md: readme update
+
 2022.02.10:
 * fixed: README.md: links update
 

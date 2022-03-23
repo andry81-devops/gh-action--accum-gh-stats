@@ -78,6 +78,10 @@ inputs:
     description: 'PAT token to the output repository with write/push access rights'
     required: true
 
+  env:
+    description: environment variables
+    # see dependent repositories and scripts for details
+
 # NOTE:
 #   Several features below is not supported in a composite action runnner:
 #     * conditionals
@@ -92,15 +96,11 @@ runs:
       shell: bash
       run: |
         echo "GH_WORKFLOW_ROOT=$GITHUB_WORKSPACE/gh-workflow" >> $GITHUB_ENV
-        echo "stats_dir=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}" >> $GITHUB_ENV
-        echo "stats_json=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/latest.json" >> $GITHUB_ENV
-        echo "stats_list_key=${{ inputs.stats_list_key }}" >> $GITHUB_ENV
 
-    - name: allocate directories
+    - name: allocate gh-workflow directory
       shell: bash
       run: |
-        mkdir -p $GH_WORKFLOW_ROOT $GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}
-        echo "WORKFLOW_TEMPDIR=$(mktemp -d)" >> $GITHUB_ENV
+        mkdir -p $GH_WORKFLOW_ROOT
 
     - name: checkout gh-workflow@${{ inputs.deps_repo_branch }}
       uses: actions/checkout@v2
@@ -110,10 +110,36 @@ runs:
         path:       gh-workflow
         token:      ${{ inputs.deps_repo_read_token }}
 
+    - name: update permissions
+      shell: bash
+      run: |
+        chmod ug+x $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh
+        chmod ug+x $GH_WORKFLOW_ROOT/bash/github/print-notice.sh
+        chmod ug+x $GH_WORKFLOW_ROOT/bash/github/accum-stats.sh
+
+    # step is required to pass environment variables externally
+    - name: declare variables from lists
+      shell: bash
+      run: |
+        $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh ${{ inputs.env }}
+
+    - name: declare local variables
+      shell: bash
+      run: |
+        echo "changelog_dir=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}" >> $GITHUB_ENV
+        echo "stats_dir=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}" >> $GITHUB_ENV
+        echo "stats_json=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/latest.json" >> $GITHUB_ENV
+        echo "stats_list_key=${{ inputs.stats_list_key }}" >> $GITHUB_ENV
+
+    - name: allocate directories
+      shell: bash
+      run: |
+        mkdir -p $GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}
+        echo "WORKFLOW_TEMPDIR=$(mktemp -d)" >> $GITHUB_ENV
+
     - name: head annotations
       shell: bash
       run: |
-        chmod ug+x $GH_WORKFLOW_ROOT/bash/github/print-notice.sh
         $GH_WORKFLOW_ROOT/bash/github/print-notice.sh \
           "stat repo: https://github.com/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}" \
           "output repo dir: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/tree/${{ inputs.output_repo_branch }}/${{ inputs.output_repo_dir }}"
@@ -140,7 +166,6 @@ runs:
       shell: bash
       run: |
         cat "$stats_json"
-        chmod ug+x $GH_WORKFLOW_ROOT/bash/github/accum-stats.sh
         $GH_WORKFLOW_ROOT/bash/github/accum-stats.sh
         # caution: no operation after that line if non zero exit code happens above
 

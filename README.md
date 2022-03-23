@@ -107,6 +107,12 @@ jobs:
           output_repo_branch:       master
           output_repo_dir:          traffic/clones
           output_repo_write_token:  ${{ secrets.WRITE_STATS_TOKEN }}
+
+          #env: >-
+          #  CONTINUE_ON_INVALID_INPUT=1
+          #  CONTINUE_ON_EMPTY_CHANGES=1
+          #  CONTINUE_ON_RESIDUAL_CHANGES=1
+          #  ENABLE_GENERATE_CHANGELOG_FILE=1
 ```
 
 `.github/workflows/accum-gh-view-stats.yml`:
@@ -145,6 +151,12 @@ jobs:
           output_repo_branch:       master
           output_repo_dir:          traffic/views
           output_repo_write_token:  ${{ secrets.WRITE_STATS_TOKEN }}
+
+          #env: >-
+          #  CONTINUE_ON_INVALID_INPUT=1
+          #  CONTINUE_ON_EMPTY_CHANGES=1
+          #  CONTINUE_ON_RESIDUAL_CHANGES=1
+          #  ENABLE_GENERATE_CHANGELOG_FILE=1
 ```
 
 > :information_source: You can use `secrets.READ_STATS_TOKEN` instead of `secrets.WRITE_STATS_TOKEN` as long as both repositories under the same repository owner.
