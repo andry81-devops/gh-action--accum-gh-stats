@@ -80,7 +80,12 @@ inputs:
 
   env:
     description: environment variables
-    # see dependent repositories and scripts for details
+    # See dependent repositories and scripts for details.
+    # examples:
+    #   CONTINUE_ON_INVALID_INPUT=1
+    #   CONTINUE_ON_EMPTY_CHANGES=1
+    #   CONTINUE_ON_RESIDUAL_CHANGES=1
+    #   ENABLE_GENERATE_CHANGELOG_FILE=1
 
 # NOTE:
 #   Several features below is not supported in a composite action runnner:
@@ -156,7 +161,8 @@ runs:
     - name: request ${{ inputs.stat_entity_path }} json
       shell: bash
       run: |
-        curl --user "${{ inputs.stat_repo_owner }}:${{ inputs.stat_repo_read_token }}" \
+        curl \
+          --user "${{ inputs.stat_repo_owner }}:${{ inputs.stat_repo_read_token }}" \
           ${{ inputs.curl_flags }} \
           -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}/${{ inputs.stat_entity_path }} \
