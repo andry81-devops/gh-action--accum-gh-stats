@@ -86,6 +86,7 @@ inputs:
     #   CONTINUE_ON_EMPTY_CHANGES=1
     #   CONTINUE_ON_RESIDUAL_CHANGES=1
     #   ENABLE_GENERATE_CHANGELOG_FILE=1
+    #   ENABLE_COMMIT_MESSAGE_DATE_WITH_TIME=1  # insert the time string in format HH:MMZ additionally after the date in each commit message
 
 # NOTE:
 #   Several features below is not supported in a composite action runnner:
