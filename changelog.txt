@@ -1,3 +1,6 @@
+2022.03.31:
+* changed: action.yml: `COMMIT_MESSAGE_DATE_TIME_PREFIX` variable usage
+
 2022.03.30:
 * changed: action.yml: `env` parameter update
 

@@ -2,6 +2,9 @@
 
 > :warning: to find all changes use [changelog.txt](https://github.com/andry81-devops/gh-action--accum-gh-stats/blob/master/changelog.txt) file in a directory
 
+## 2022.03.31:
+* changed: action.yml: `COMMIT_MESSAGE_DATE_TIME_PREFIX` variable usage
+
 ## 2022.03.23:
 * new: action.yml: `env` input parameter to explicitly declare global environment variables
 * new: action.yml: `changelog_dir` variable usage is added
