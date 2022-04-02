@@ -2,6 +2,9 @@
 
 > :warning: to find all changes use [changelog.txt](https://github.com/andry81-devops/gh-action--accum-gh-stats/blob/master/changelog.txt) file in a directory
 
+## 2022.04.02:
+* changed: action.yml: switch to use `actions/checkout@v3` action
+
 ## 2022.03.31:
 * changed: action.yml: `COMMIT_MESSAGE_DATE_TIME_PREFIX` variable usage
 
