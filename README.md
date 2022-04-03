@@ -177,11 +177,11 @@ jobs:
 
 > :information_source: See <a href="https://github.com/andry81-devops/github-accum-stats/blob/master/README.md#reuse">REUSE</a> section for details if you have multiple repositories and want to store all workflow scripts in a single repository.
 
-## Dependencies<a name="dependecies"></a>
+## <a name="dependecies">Dependencies</a>
 
 * https://github.com/andry81-devops/gh-workflow
 
-## Known Issues<a name="known_issues"></a>
+## <a name="known_issues">Known Issues</a>
 
 The action has supported not all features of a generic GitHub action: https://github.com/actions/runner/issues/646
 
@@ -191,6 +191,14 @@ The action has supported not all features of a generic GitHub action: https://gi
 >
 > (Note: we do support these attributes being set in workflows for a step that uses a composite run steps action)
 
-## Copyright and License<a name="copyright-and-license"></a>
+## <a name="known_issues_updates">Last known updates on composite actions features</a>
+
+* Conditionals: https://github.com/actions/runner/issues/834
+
+  * https://github.blog/changelog/2021-11-09-github-actions-conditional-execution-of-steps-in-actions/
+
+    Actions written in YAML, also known as composite actions, now support if conditionals.
+
+## <a name="copyright-and-license">Copyright and License</a>
 
 Code and documentation copyright 2021 Andrey Dibrov. Code released under [MIT License](https://github.com/andry81-devops/gh-action--accum-gh-stats/blob/master/license.txt)
