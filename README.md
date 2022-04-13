@@ -183,21 +183,11 @@ jobs:
 
 ## <a name="known_issues">Known Issues</a>
 
-The action has supported not all features of a generic GitHub action: https://github.com/actions/runner/issues/646
-
-> **What does Composite Run Steps Not Support**
->
-> We don't support setting conditionals, continue-on-error, timeout-minutes, "uses", and secrets on individual steps within a composite action right now.
->
-> (Note: we do support these attributes being set in workflows for a step that uses a composite run steps action)
+https://github.com/andry81/github-accum-stats/blob/master/README.md#known_issues
 
 ## <a name="known_issues_updates">Last known updates on composite actions features</a>
 
-* Conditionals: https://github.com/actions/runner/issues/834
-
-  * https://github.blog/changelog/2021-11-09-github-actions-conditional-execution-of-steps-in-actions/
-
-    Actions written in YAML, also known as composite actions, now support if conditionals.
+https://github.com/andry81/github-accum-stats/blob/master/README.md#known_issues_updates
 
 ## <a name="copyright-and-license">Copyright and License</a>
 
