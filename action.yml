@@ -1,11 +1,4 @@
-# CAUTION:
-#   Not all features of a generic GitHub action is supported: https://github.com/actions/runner/issues/646
-#
-# **What does Composite Run Steps Not Support**
-#
-# We don't support setting conditionals, continue-on-error, timeout-minutes, "uses", and secrets on individual steps within a composite action right now.
-#
-# (Note: we do support these attributes being set in workflows for a step that uses a composite run steps action)
+# Tutorial to use with: https://github.com/andry81-devops/github-accum-stats
 #
 
 name: accum-gh-stats
