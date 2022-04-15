@@ -1,3 +1,6 @@
+2022.04.15:
+* changed: action.yml: switched to use `andry81-devops/gh-action--git-checkout` action instead of `actions/checkout`
+
 2022.04.14:
 * changed: action.yml: minor change
 
