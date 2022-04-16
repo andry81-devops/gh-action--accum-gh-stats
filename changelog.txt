@@ -1,3 +1,8 @@
+2022.04.16:
+* fixed: action.yml: `mkdir` in a working copy moved after git checkout instead of before to avoid accidental remove on cleanup
+* changed: action.yml: added `mkdir-p` parameter usage
+* changed: README.md: readme update
+
 2022.04.15:
 * changed: action.yml: switched to use `andry81-devops/gh-action--git-checkout` action instead of `actions/checkout`
 
@@ -104,6 +109,6 @@
 2021.11.27:
 * new: `README.md` readme file
 * new: `changelog.txt` changelog file
-* new: `userlog.txt` userlog file
+* new: `userlog.` userlog file
 * new: `license.txt` license file
 * changed: action.yml: added `deps_repo_owner` parameter to specifically address dependent repositories

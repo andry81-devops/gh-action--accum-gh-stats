@@ -183,11 +183,11 @@ jobs:
 
 ## <a name="known_issues">Known Issues</a>
 
-https://github.com/andry81/github-accum-stats/blob/master/README.md#known_issues
+https://github.com/andry81-devops/github-accum-stats/blob/master/README.md#known_issues
 
 ## <a name="known_issues_updates">Last known updates on composite actions features</a>
 
-https://github.com/andry81/github-accum-stats/blob/master/README.md#known_issues_updates
+https://github.com/andry81-devops/github-accum-stats/blob/master/README.md#known_issues_updates
 
 ## <a name="copyright-and-license">Copyright and License</a>
 
