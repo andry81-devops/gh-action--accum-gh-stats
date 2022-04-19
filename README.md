@@ -81,7 +81,7 @@ Tutorial to use with: https://github.com/andry81-devops/github-accum-stats</h4>
 
 ## Examples:
 
-`.github/workflows/accum-gh-clone-stats.yml`:
+<a name="accum-gh-clone-stats-yml">`.github/workflows/accum-gh-clone-stats.yml`</a>:
 
 ```yml
 name: GitHub clones counter for 14 days at every 8 hours and clones accumulator
@@ -126,7 +126,7 @@ jobs:
           #  ENABLE_COMMIT_MESSAGE_DATE_WITH_TIME=1
 ```
 
-`.github/workflows/accum-gh-view-stats.yml`:
+<a name="accum-gh-view-stats-yml">`.github/workflows/accum-gh-view-stats.yml`</a>:
 
 ```yml
 name: GitHub views counter for 14 days at every 8 hours and views accumulator
@@ -175,19 +175,19 @@ jobs:
 
 > :warning: You must use different values for `deps_repo_owner`, `stat_repo_owner` and `output_repo_owner` if respective repositories actually under different repository owners.
 
-> :information_source: See <a href="https://github.com/andry81-devops/github-accum-stats/blob/master/README.md#reuse">REUSE</a> section for details if you have multiple repositories and want to store all workflow scripts in a single repository.
+> :information_source: See <a href="https://github.com/andry81-devops/github-accum-stats#reuse">REUSE</a> section for details if you have multiple repositories and want to store all GitHub workflow scripts (`.github/workflows/*.yml`) in a single repository.
 
 ## <a name="dependecies">Dependencies</a>
 
 * https://github.com/andry81-devops/gh-workflow
 
-## <a name="known_issues">Known Issues</a>
+## Known Issues
 
-https://github.com/andry81-devops/github-accum-stats/blob/master/README.md#known_issues
+https://github.com/andry81-devops/github-accum-stats#known-issues
 
-## <a name="known_issues_updates">Last known updates on composite actions features</a>
+## Last known issues updates
 
-https://github.com/andry81-devops/github-accum-stats/blob/master/README.md#known_issues_updates
+https://github.com/andry81-devops/github-accum-stats#last-known-issues-updates
 
 ## <a name="copyright-and-license">Copyright and License</a>
 
