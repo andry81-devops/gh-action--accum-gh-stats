@@ -80,6 +80,7 @@ inputs:
     #   CONTINUE_ON_RESIDUAL_CHANGES=1
     #   ENABLE_GENERATE_CHANGELOG_FILE=1
     #   ENABLE_COMMIT_MESSAGE_DATE_WITH_TIME=1  # insert the time string in format HH:MMZ additionally after the date in each commit message
+    #   CHANGELOG_FILE=changelog.txt
 
 runs:
   using: "composite"
@@ -118,15 +119,23 @@ runs:
     - name: declare local variables
       shell: bash
       run: |
-        echo "changelog_dir=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}" >> $GITHUB_ENV
-        echo "stats_dir=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}" >> $GITHUB_ENV
-        echo "stats_json=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/latest.json" >> $GITHUB_ENV
-        echo "stats_list_key=${{ inputs.stats_list_key }}" >> $GITHUB_ENV
+        $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
+          "CHANGELOG_FILE=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/${{ env.CHANGELOG_FILE }}" \
+          "stats_dir=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}" \
+          "stats_json=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/latest.json" \
+          "stats_list_key=${{ inputs.stats_list_key }}"
+
+    - name: declare local variables
+      shell: bash
+      run: |
+        $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
+          "changelog_dir=${CHANGELOG_FILE%/*}"
 
     - name: allocate directories
       shell: bash
       run: |
-        echo "WORKFLOW_TEMPDIR=$(mktemp -d)" >> $GITHUB_ENV
+        $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
+          "WORKFLOW_TEMPDIR=$(mktemp -d)"
 
     - name: head annotations
       shell: bash
@@ -145,6 +154,7 @@ runs:
 
         mkdir-p: >-
           ${{ inputs.output_repo_dir }}
+          ${{ env.changelog_dir }}
 
     - name: request ${{ inputs.stat_entity_path }} json
       shell: bash
