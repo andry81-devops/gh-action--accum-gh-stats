@@ -121,6 +121,7 @@ runs:
       run: |
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
           "CHANGELOG_FILE=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/${{ env.CHANGELOG_FILE }}" \
+          "stat_entity_path=${{ inputs.stat_entity_path }}" \
           "stats_dir=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}" \
           "stats_json=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/latest.json" \
           "stats_list_key=${{ inputs.stats_list_key }}"
@@ -156,7 +157,7 @@ runs:
           ${{ inputs.output_repo_dir }}
           ${{ env.changelog_dir }}
 
-    - name: request ${{ inputs.stat_entity_path }} json
+    - name: 'request `${{ inputs.stat_entity_path }}` json'
       shell: bash
       run: |
         curl \
@@ -167,7 +168,7 @@ runs:
           > "$stats_json"
         cat "$stats_json"
 
-    - name: accumulate ${{ inputs.stat_entity_path }}
+    - name: 'accumulate `${{ inputs.stat_entity_path }}`'
       id: accum-stats
       shell: bash
       run: |
@@ -181,7 +182,7 @@ runs:
         git add .
         git config --global user.name "GitHub Action"
         git config --global user.email "action@github.com"
-        git commit -m "A/U: $COMMIT_MESSAGE_DATE_TIME_PREFIX: ${{ inputs.stat_entity_path }}$COMMIT_MESSAGE_SUFFIX"
+        git commit -m "A/U: $COMMIT_MESSAGE_DATE_TIME_PREFIX: ${COMMIT_MESSAGE_PREFIX}${COMMIT_MESSAGE_PREFIX:+" | "}$COMMIT_MESSAGE_SUFFIX"
 
     - name: push gh-stats
       uses: ad-m/github-push-action@master
