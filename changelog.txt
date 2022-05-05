@@ -1,3 +1,6 @@
+2022.05.05:
+* new: bash: curl stderr print on error
+
 2022.05.04:
 * new: action.yml: added `COMMIT_MESSAGE_PREFIX` to split an automated user commit message into prefix and suffix parts
 * changed: README.md: readme update

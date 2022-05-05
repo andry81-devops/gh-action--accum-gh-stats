@@ -136,7 +136,7 @@ runs:
       shell: bash
       run: |
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
-          "WORKFLOW_TEMPDIR=$(mktemp -d)"
+          "TEMP_DIR=$(mktemp -d)"
 
     - name: head annotations
       shell: bash
@@ -164,9 +164,20 @@ runs:
           --user "${{ inputs.stat_repo_owner }}:${{ inputs.stat_repo_read_token }}" \
           ${{ inputs.curl_flags }} \
           -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}/${{ inputs.stat_entity_path }} \
-          > "$stats_json"
-        cat "$stats_json"
+          -o "$stats_json" \
+          "https://api.github.com/repos/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}/${{ inputs.stat_entity_path }}" \
+          2> "$TEMP_DIR/curl-stderr.txt"
+        last_error=$?
+        echo $'---\n'"$(<"$stats_json")"$'\n---'
+        if (( last_error )); then
+          if [[ -s "$TEMP_DIR/curl-stderr.txt" ]]; then
+            echo "$(<"$TEMP_DIR/curl-stderr.txt")"$'\n---'
+          fi
+        else
+          if [[ ! -s "$stats_json" && -s "$TEMP_DIR/curl-stderr.txt" ]]; then
+            echo "$(<"$TEMP_DIR/curl-stderr.txt")"$'\n---'
+          fi
+        fi
 
     - name: 'accumulate `${{ inputs.stat_entity_path }}`'
       id: accum-stats
