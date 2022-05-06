@@ -1,3 +1,6 @@
+2022.05.06:
+* fixed: action.yml: `CHANGELOG_FILE` must be always not empty
+
 2022.05.05:
 * new: bash: curl stderr print on error
 

@@ -116,11 +116,17 @@ runs:
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
           ${{ inputs.env }}
 
+    - name: variables validation
+      shell: bash
+      run: |
+        $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
+          "CHANGELOG_FILE=${CHANGELOG_FILE:-"changelog.txt"}"
+
     - name: declare local variables
       shell: bash
       run: |
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
-          "CHANGELOG_FILE=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/${{ env.CHANGELOG_FILE }}" \
+          "CHANGELOG_FILE=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/$CHANGELOG_FILE" \
           "stat_entity_path=${{ inputs.stat_entity_path }}" \
           "stats_dir=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}" \
           "stats_json=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/latest.json" \
