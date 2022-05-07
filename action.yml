@@ -166,13 +166,17 @@ runs:
     - name: 'request `${{ inputs.stat_entity_path }}` json'
       shell: bash
       run: |
+        # CAUTION:
+        #   The `sed` has to be used to ignore blank lines by replacing `CR` by `LF`.
+        #   This is required for uniform parse the curl output in both verbose or non verbose mode.
+        #
         curl \
           --user "${{ inputs.stat_repo_owner }}:${{ inputs.stat_repo_read_token }}" \
           ${{ inputs.curl_flags }} \
           -H "Accept: application/vnd.github.v3+json" \
           -o "$stats_json" \
           "https://api.github.com/repos/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}/${{ inputs.stat_entity_path }}" \
-          2> "$TEMP_DIR/curl-stderr.txt"
+          2>&1 | tee "$TEMP_DIR/curl-stderr.txt" | sed -E 's/\r([^\n])/\n\1/g' | grep -P '^(?:  [% ] |(?:  |  \d|\d\d)\d |[<>] )'
         last_error=$?
         echo $'---\n'"$(<"$stats_json")"$'\n---'
         if (( last_error )); then

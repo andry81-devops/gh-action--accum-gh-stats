@@ -1,3 +1,6 @@
+2022.05.07:
+* fixed: action.yml: curl progress obscure by stderr is workarounded by grep it into stdout
+
 2022.05.06:
 * fixed: action.yml: `CHANGELOG_FILE` must be always not empty
 
