@@ -1,3 +1,6 @@
+2022.05.08:
+* changed: README.md: replaced the rest of links by content cache links
+
 2022.05.07:
 * fixed: action.yml: curl progress obscure by stderr is workarounded by grep it into stdout
 
