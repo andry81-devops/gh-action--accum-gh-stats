@@ -113,9 +113,11 @@ jobs:
 
           stat_repo_owner:          {{REPO_OWNER}}
           stat_repo:                {{REPO}}
-          stat_entity_path:         traffic/clones
+          stat_entity:              clones
           stat_repo_read_token:     ${{ secrets.READ_STATS_TOKEN }}
           stats_list_key:           clones
+
+          #commit_msg_entity:        cl
 
           curl_flags: >-
             -H 'Cache-Control: no-cache'
@@ -159,9 +161,11 @@ jobs:
 
           stat_repo_owner:          {{REPO_OWNER}}
           stat_repo:                {{REPO}}
-          stat_entity_path:         traffic/views
+          stat_entity:              views
           stat_repo_read_token:     ${{ secrets.READ_STATS_TOKEN }}
           stats_list_key:           views
+
+          #commit_msg_entity:        vi
 
           curl_flags: >-
             -H 'Cache-Control: no-cache'

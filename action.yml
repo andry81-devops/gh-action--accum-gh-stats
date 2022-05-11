@@ -25,23 +25,22 @@ inputs:
     description: 'Repository name used to request the statistic'
     required: true
 
-  stat_entity_path:
-    description: 'Statistic entity path to request'
+  stat_entity:
+    description: 'Statistic entity to request'
     required: true
+    # variants:
+    # - clones
+    # - views
+
+  commit_msg_entity:
+    description: 'Commit message entity. The `stat_entity` does use if not defined.'
     # examples:
-    # - traffic/clones
-    # - traffic/views
+    # - cl
+    # - vi
 
   stat_repo_read_token:
     description: 'PAT token to a repository used to request the statistic with statistic read access rights'
     required: true
-
-  stats_list_key:
-    description: 'A list key containing GitHub repository statistic'
-    required: true
-    # examples:
-    # - clones
-    # - views
 
   curl_flags:
     description: 'additional curl flags'
@@ -127,10 +126,19 @@ runs:
       run: |
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
           "CHANGELOG_FILE=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/$CHANGELOG_FILE" \
-          "stat_entity_path=${{ inputs.stat_entity_path }}" \
+          "stat_entity=${{ inputs.stat_entity }}" \
+          "commit_msg_entity=${{ inputs.commit_msg_entity }}" \
           "stats_dir=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}" \
-          "stats_json=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/latest.json" \
-          "stats_list_key=${{ inputs.stats_list_key }}"
+          "stats_json=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/latest.json"
+
+    - name: variables validation
+      shell: bash
+      run: |
+        case "$stat_entity" in
+          "views")  $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh "stat_entity_path=traffic/views";;
+          "clones") $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh "stat_entity_path=traffic/clones";;
+          *) $GH_WORKFLOW_ROOT/bash/github/print-error.sh "\`stat_entity\` input parameter is invalid: \`$stat_entity\`"; exit 255;;
+        esac
 
     - name: declare local variables
       shell: bash
@@ -163,7 +171,7 @@ runs:
           ${{ inputs.output_repo_dir }}
           ${{ env.changelog_dir }}
 
-    - name: 'request `${{ inputs.stat_entity_path }}` json'
+    - name: 'request `${{ inputs.stat_entity }}` json'
       shell: bash
       run: |
         # CAUTION:
@@ -175,7 +183,7 @@ runs:
           ${{ inputs.curl_flags }} \
           -H "Accept: application/vnd.github.v3+json" \
           -o "$stats_json" \
-          "https://api.github.com/repos/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}/${{ inputs.stat_entity_path }}" \
+          "https://api.github.com/repos/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}/$stat_entity_path" \
           2>&1 | tee "$TEMP_DIR/curl-stderr.txt" | sed -E 's/\r([^\n])/\n\1/g' | grep -P '^(?:  [% ] |(?:  |  \d|\d\d)\d |[<>] )'
         last_error=$?
         echo $'---\n'"$(<"$stats_json")"$'\n---'
@@ -189,7 +197,7 @@ runs:
           fi
         fi
 
-    - name: 'accumulate `${{ inputs.stat_entity_path }}`'
+    - name: 'accumulate `${{ inputs.stat_entity }}`'
       id: accum-stats
       shell: bash
       run: |
@@ -203,7 +211,7 @@ runs:
         git add .
         git config --global user.name "GitHub Action"
         git config --global user.email "action@github.com"
-        git commit -m "A/U: $COMMIT_MESSAGE_DATE_TIME_PREFIX: ${COMMIT_MESSAGE_PREFIX}${COMMIT_MESSAGE_PREFIX:+" | "}$COMMIT_MESSAGE_SUFFIX"
+        git commit -m "A/U: $COMMIT_MESSAGE_DATE_TIME_PREFIX: ${COMMIT_MESSAGE_PREFIX}${COMMIT_MESSAGE_SUFFIX:+" | "}$COMMIT_MESSAGE_SUFFIX"
 
     - name: push gh-stats
       uses: ad-m/github-push-action@master

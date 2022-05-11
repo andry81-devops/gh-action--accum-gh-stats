@@ -1,3 +1,10 @@
+2022.05.11:
+* new: action.yml: added `commit_msg_entity` optional input parameter as replacement of `stat_entity` in the commit message
+* changed: action.yml: renamed `stat_entity_path` to `stat_entity` to select implementation
+* changed: action.yml: removed `stats_list_key` input parameter
+* changed: action.yml: swapped `COMMIT_MESSAGE_PREFIX` and `COMMIT_MESSAGE_SUFFIX` in all scripts to further improve readability in case of GitHub commit message truncation
+* changed: README.md: readme update
+
 2022.05.08:
 * changed: README.md: replaced the rest of links by content cache links
 
