@@ -1,3 +1,7 @@
+2022.05.31:
+* new: action.yml: added `ENABLE_COMMIT_MESSAGE_DATE_TIME_WITH_LAST_CHANGED_DATE_OFFSET` environment variable description
+* changed: README.md: readme update
+
 2022.05.20:
 * changed: README.md: readme update
 

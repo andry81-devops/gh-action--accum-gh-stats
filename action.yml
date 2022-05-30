@@ -78,7 +78,8 @@ inputs:
     #   CONTINUE_ON_EMPTY_CHANGES=1
     #   CONTINUE_ON_RESIDUAL_CHANGES=1
     #   ENABLE_GENERATE_CHANGELOG_FILE=1
-    #   ENABLE_COMMIT_MESSAGE_DATE_WITH_TIME=1  # insert the time string in format HH:MMZ additionally after the date in each commit message
+    #   ENABLE_COMMIT_MESSAGE_DATE_WITH_TIME=1                            # insert the time string in format `HH:MMZ` additionally after the date in each commit message
+    #   ENABLE_COMMIT_MESSAGE_DATE_TIME_WITH_LAST_CHANGED_DATE_OFFSET=1   # insert datetime suffix as offset to the last changed date in format `-DDT` to note the closest changed date
     #   CHANGELOG_FILE=changelog.txt
 
 runs:

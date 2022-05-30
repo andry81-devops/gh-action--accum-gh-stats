@@ -80,6 +80,8 @@ Tutorial to use with: https://github.com/andry81-devops/github-accum-stats</h4>
 
 * The script can insert the time string in format `HH:MMZ` additionally after the date in each commit message (by default inserts only a date for shorter commit messages; `ENABLE_COMMIT_MESSAGE_DATE_WITH_TIME=1`)
 
+* The script can insert the last changed date offset string additionally after the datetime in each commit message in format `-DDT` to note the closest changed date (`ENABLE_COMMIT_MESSAGE_DATE_TIME_WITH_LAST_CHANGED_DATE_OFFSET=1`)
+
 # USAGE
 
 > **Warning** You must replace all placeholder into respective values:
@@ -133,7 +135,8 @@ jobs:
           #  CONTINUE_ON_EMPTY_CHANGES=1
           #  CONTINUE_ON_RESIDUAL_CHANGES=1
           #  ENABLE_GENERATE_CHANGELOG_FILE=1
-          #  ENABLE_COMMIT_MESSAGE_DATE_WITH_TIME=1
+          #  ENABLE_COMMIT_MESSAGE_DATE_WITH_TIME=1                            # insert the time string in format `HH:MMZ` additionally after the date in each commit message
+          #  ENABLE_COMMIT_MESSAGE_DATE_TIME_WITH_LAST_CHANGED_DATE_OFFSET=1   # insert datetime suffix as offset to the last changed date in format `-DDT` to note the closest changed date
           #  CHANGELOG_FILE=changelog.txt
 ```
 
@@ -181,7 +184,8 @@ jobs:
           #  CONTINUE_ON_EMPTY_CHANGES=1
           #  CONTINUE_ON_RESIDUAL_CHANGES=1
           #  ENABLE_GENERATE_CHANGELOG_FILE=1
-          #  ENABLE_COMMIT_MESSAGE_DATE_WITH_TIME=1
+          #  ENABLE_COMMIT_MESSAGE_DATE_WITH_TIME=1                            # insert the time string in format `HH:MMZ` additionally after the date in each commit message
+          #  ENABLE_COMMIT_MESSAGE_DATE_TIME_WITH_LAST_CHANGED_DATE_OFFSET=1   # insert datetime suffix as offset to the last changed date in format `-DDT` to note the closest changed date
           #  CHANGELOG_FILE=changelog.txt
 ```
 
