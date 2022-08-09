@@ -2,6 +2,9 @@
 
 > :warning: to find all changes use [changelog.txt](https://github.com/andry81-devops/gh-action--accum-gh-stats/blob/master/changelog.txt) file in a directory
 
+## 2022.08.09:
+* new: action.yml: print commit reference url to the log
+
 ## 2022.05.11:
 * new: action.yml: added `commit_msg_entity` optional input parameter as replacement of `stat_entity` in the commit message
 * changed: action.yml: renamed `stat_entity_path` to `stat_entity` to select implementation

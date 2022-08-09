@@ -213,6 +213,8 @@ runs:
         git config --global user.name "GitHub Action"
         git config --global user.email "action@github.com"
         git commit -m "A/U: $COMMIT_MESSAGE_DATE_TIME_PREFIX: ${COMMIT_MESSAGE_PREFIX}${COMMIT_MESSAGE_SUFFIX:+" | "}$COMMIT_MESSAGE_SUFFIX"
+        $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
+          "HEAD_COMMIT_HASH=$(git rev-parse HEAD)"
 
     - name: push gh-stats
       uses: ad-m/github-push-action@master
@@ -221,3 +223,9 @@ runs:
         branch:       ${{ inputs.output_repo_branch }}
         directory:    gh-stats
         github_token: ${{ inputs.output_repo_write_token }}
+
+    - name: print commit parameters
+      shell: bash
+      run: |
+        $GH_WORKFLOW_ROOT/bash/github/print-notice.sh \
+          "commit reference url: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/commit/$HEAD_COMMIT_HASH"
