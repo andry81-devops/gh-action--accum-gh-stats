@@ -54,6 +54,8 @@
 <br/>
 Tutorial to use with: https://github.com/andry81-devops/github-accum-stats</h4>
 
+All tutorials: https://github.com/andry81/index#tutorials
+
 ##
 
 # gh-action--accum-gh-stats@master

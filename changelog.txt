@@ -1,3 +1,6 @@
+2022.08.12:
+* changed: README.md: readme update
+
 2022.08.09:
 * new: action.yml: print commit reference url to the log
 
