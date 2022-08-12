@@ -1,4 +1,7 @@
 2022.08.12:
+* new: action.yml: flush print annotations at the last always executed step
+
+2022.08.12:
 * changed: README.md: readme update
 
 2022.08.09:

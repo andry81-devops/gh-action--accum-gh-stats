@@ -107,6 +107,7 @@ runs:
       run: |
         chmod ug+x $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh
         chmod ug+x $GH_WORKFLOW_ROOT/bash/github/print-notice.sh
+        chmod ug+x $GH_WORKFLOW_ROOT/bash/github/flush-print-annotations.sh
         chmod ug+x $GH_WORKFLOW_ROOT/bash/github/accum-stats.sh
 
     # step is required to pass environment variables externally
@@ -229,3 +230,9 @@ runs:
       run: |
         $GH_WORKFLOW_ROOT/bash/github/print-notice.sh \
           "commit reference url: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/commit/$HEAD_COMMIT_HASH"
+
+    - name: flush print annotations
+      if: always()
+      shell: bash
+      run: |
+        $GH_WORKFLOW_ROOT/bash/github/flush-print-annotations.sh

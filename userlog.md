@@ -2,6 +2,9 @@
 
 > :warning: to find all changes use [changelog.txt](https://github.com/andry81-devops/gh-action--accum-gh-stats/blob/master/changelog.txt) file in a directory
 
+## 2022.08.12:
+* new: action.yml: flush print annotations at the last always executed step
+
 ## 2022.08.09:
 * new: action.yml: print commit reference url to the log
 
