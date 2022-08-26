@@ -1,4 +1,7 @@
 2022.08.26:
+* new: action.yml: added `ENABLE_GITHUB_ACTIONS_RUN_URL_PRINT_TO_CHANGELOG` and `GHWF_GITHUB_ACTIONS_RUN_URL` variables to be able to print GitHub Actions run URL into the changelog file
+
+2022.08.26:
 * changed: action.yml: replaced usage of `$(mktemp -d)` by builtin `${{ runner.temp }}` to be able to use temporary directory from a hosted runner
 
 2022.08.22:
