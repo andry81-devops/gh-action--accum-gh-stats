@@ -106,6 +106,7 @@ runs:
       shell: bash
       run: |
         chmod ug+x $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh
+        chmod ug+x $GH_WORKFLOW_ROOT/bash/github/eval-from-args.sh
         chmod ug+x $GH_WORKFLOW_ROOT/bash/github/print-notice.sh
         chmod ug+x $GH_WORKFLOW_ROOT/bash/github/flush-print-annotations.sh
         chmod ug+x $GH_WORKFLOW_ROOT/bash/github/accum-stats.sh
@@ -151,8 +152,11 @@ runs:
     - name: allocate directories
       shell: bash
       run: |
+        # for details: https://docs.github.com/en/actions/learn-github-actions/contexts#runner-context
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
-          "TEMP_DIR=$(mktemp -d)"
+          "TEMP_DIR=${{ runner.temp }}/accum-stats"
+        $GH_WORKFLOW_ROOT/bash/github/eval-from-args.sh -Ep \
+          'mkdir -p "$TEMP_DIR"'
 
     - name: head annotations
       shell: bash
