@@ -1,3 +1,6 @@
+2022.09.08:
+* new: action.yml: print changelog file path into pipeline log
+
 2022.08.26:
 * new: action.yml: added `ENABLE_GITHUB_ACTIONS_RUN_URL_PRINT_TO_CHANGELOG` and `GHWF_GITHUB_ACTIONS_RUN_URL` variables to be able to print GitHub Actions run URL into the changelog file
 

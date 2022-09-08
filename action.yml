@@ -130,6 +130,7 @@ runs:
       shell: bash
       run: |
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
+          "changelog_file=$CHANGELOG_FILE" \
           "CHANGELOG_FILE=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/$CHANGELOG_FILE" \
           "stat_entity=${{ inputs.stat_entity }}" \
           "commit_msg_entity=${{ inputs.commit_msg_entity }}" \
@@ -165,7 +166,8 @@ runs:
       run: |
         $GH_WORKFLOW_ROOT/bash/github/print-notice.sh \
           "stat repo: https://github.com/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}" \
-          "output repo dir: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/tree/${{ inputs.output_repo_branch }}/${{ inputs.output_repo_dir }}"
+          "output repo dir: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/tree/${{ inputs.output_repo_branch }}/${{ inputs.output_repo_dir }}" \
+          "changelog file: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/tree/${{ inputs.output_repo_branch }}/${{ inputs.output_repo_dir }}/$changelog_file"
 
     - name: checkout gh-stats@${{ inputs.output_repo_branch }}
       uses: andry81-devops/gh-action--git-checkout@master
