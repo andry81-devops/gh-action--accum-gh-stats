@@ -116,8 +116,13 @@ runs:
     - name: declare variables from lists
       shell: bash
       run: |
+        # suppress not zero exit code
+        { IFS=$' \t' read -r -d '' INPUT_ENV || (( 1 )); } <<::EOF::
+        ${{ inputs.env }}
+        ::EOF::
+        INPUT_ENV="${INPUT_ENV//[$'\n\r']/}" # remove all line returns
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
-          ${{ inputs.env }} \
+          ${INPUT_ENV} \
           "GHWF_GITHUB_ACTIONS_RUN_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
     - name: variables validation

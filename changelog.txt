@@ -1,4 +1,7 @@
 2022.09.08:
+* fixed: action.yml: multiline input in `${{ input.env }}`
+
+2022.09.08:
 * new: action.yml: print changelog file path into pipeline log
 
 2022.08.26:
