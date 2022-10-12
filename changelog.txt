@@ -1,3 +1,11 @@
+2022.10.12:
+* new: action.yml: added `flags` parameter with builtin parse into `GH_WORKFLOW_FLAGS` environment variable as a single line string
+* new: action.yml: added step to print initial environment variables into the log (flags: `ENABLE_PRINT_INITIAL_ENV_INTO_STDOUT=1`)
+* new: action.yml: added ability to insert workflow run number into commit message after date/time prefix (`ENABLE_COMMIT_MESSAGE_WITH_WORKFLOW_RUN_NUMBER=1`)
+* changed: action.yml: use `$GH_WORKFLOW_ROOT/_common/update-permissions.sh` script to automate permissions update
+* changed: action.yml: print `GITHUB_RUN_ID` and `GITHUB_RUN_NUMBER` environment variable values together with the changelog file path notice
+* changed: README.md: readme update
+
 2022.09.08:
 * fixed: action.yml: multiline input in `${{ input.env }}`
 
