@@ -1,3 +1,7 @@
+2022.12.11:
+* new: action.yml: added `ENABLE_COMMIT_REFERENCE_URL_PRINT_TO_CHANGELOG` variable to be able to print Commit Reference URL into the changelog file
+* changed: README.md: readme update
+
 2022.10.12:
 * new: action.yml: added `flags` parameter with builtin parse into `GH_WORKFLOW_FLAGS` environment variable as a single line string
 * new: action.yml: added step to print initial environment variables into the log (flags: `ENABLE_PRINT_INITIAL_ENV_INTO_STDOUT=1`)
