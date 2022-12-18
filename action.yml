@@ -105,7 +105,6 @@ inputs:
     #   ENABLE_COMMIT_MESSAGE_DATE_TIME_WITH_LAST_CHANGED_DATE_OFFSET=1   # insert datetime suffix as offset to the last changed date in format `-DDT` to note the closest changed date
     #   ENABLE_COMMIT_MESSAGE_WITH_WORKFLOW_RUN_NUMBER=1                  # insert the workflow run number after date/time prefix in each commit message
     #   ENABLE_GITHUB_ACTIONS_RUN_URL_PRINT_TO_CHANGELOG=1
-    #   ENABLE_COMMIT_REFERENCE_URL_PRINT_TO_CHANGELOG=1
     #   CONTINUE_ON_INVALID_INPUT=1
     #   CONTINUE_ON_EMPTY_CHANGES=1
     #   CONTINUE_ON_RESIDUAL_CHANGES=1
@@ -300,16 +299,8 @@ runs:
     - name: print commit parameters
       shell: bash
       run: |
-        if (( ENABLE_COMMIT_REFERENCE_URL_PRINT_TO_CHANGELOG )); then
-          $GH_WORKFLOW_ROOT/bash/_common/source-and-call.sh \
-            $GH_WORKFLOW_ROOT/bash/github/print-notice.sh \
-            gh_print_notice_and_write_to_changelog_text_bullet_ln \
-              "commit reference url: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/commit/$HEAD_COMMIT_HASH" \
-              "Commit Reference URL: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/commit/$HEAD_COMMIT_HASH"
-        else
-          $GH_WORKFLOW_ROOT/bash/github/print-notice.sh \
-            "commit reference url: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/commit/$HEAD_COMMIT_HASH"
-        fi
+        $GH_WORKFLOW_ROOT/bash/github/print-notice.sh \
+          "commit reference url: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/commit/$HEAD_COMMIT_HASH"
 
     - name: flush print annotations
       if: always()

@@ -91,8 +91,6 @@ All tutorials: https://github.com/andry81/index#tutorials
 
 * Can print GitHub Actions Run URL (with workflow run number) into the changelog file to reference the log on the GitHub from the changelog file (`ENABLE_GITHUB_ACTIONS_RUN_URL_PRINT_TO_CHANGELOG=1`)
 
-* Can print Commit Reference URL into the changelog file to reference a commit on the GitHub from the changelog file (`ENABLE_COMMIT_REFERENCE_URL_PRINT_TO_CHANGELOG=1`)
-
 # USAGE
 
 > **Warning** You must replace all placeholder into respective values:
@@ -150,7 +148,6 @@ jobs:
             ENABLE_COMMIT_MESSAGE_DATE_TIME_WITH_LAST_CHANGED_DATE_OFFSET=1   # insert datetime suffix as offset to the last changed date in format `-DDT` to note the closest changed date
             ENABLE_COMMIT_MESSAGE_WITH_WORKFLOW_RUN_NUMBER=1                  # insert the workflow run number after date/time prefix in each commit message
             ENABLE_GITHUB_ACTIONS_RUN_URL_PRINT_TO_CHANGELOG=1
-            ENABLE_COMMIT_REFERENCE_URL_PRINT_TO_CHANGELOG=1
           #  CONTINUE_ON_INVALID_INPUT=1
           #  CONTINUE_ON_EMPTY_CHANGES=1
           #  CONTINUE_ON_RESIDUAL_CHANGES=1
@@ -205,7 +202,6 @@ jobs:
             ENABLE_COMMIT_MESSAGE_DATE_TIME_WITH_LAST_CHANGED_DATE_OFFSET=1   # insert datetime suffix as offset to the last changed date in format `-DDT` to note the closest changed date
             ENABLE_COMMIT_MESSAGE_WITH_WORKFLOW_RUN_NUMBER=1                  # insert the workflow run number after date/time prefix in each commit message
             ENABLE_GITHUB_ACTIONS_RUN_URL_PRINT_TO_CHANGELOG=1
-            ENABLE_COMMIT_REFERENCE_URL_PRINT_TO_CHANGELOG=1
           #  CONTINUE_ON_INVALID_INPUT=1
           #  CONTINUE_ON_EMPTY_CHANGES=1
           #  CONTINUE_ON_RESIDUAL_CHANGES=1

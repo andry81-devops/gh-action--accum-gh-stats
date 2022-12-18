@@ -2,6 +2,9 @@
 
 > :warning: to find all changes use [changelog.txt](https://github.com/andry81-devops/gh-action--accum-gh-stats/blob/master/changelog.txt) file in a directory
 
+## 2022.12.18:
+* changed: action.yml: removed `ENABLE_COMMIT_REFERENCE_URL_PRINT_TO_CHANGELOG` variable because is not possible to make a commit and in the same time save the commit hash in a being committed file
+
 ## 2022.12.11:
 * new: action.yml: added `ENABLE_COMMIT_REFERENCE_URL_PRINT_TO_CHANGELOG` variable to be able to print Commit Reference URL into the changelog file
 
