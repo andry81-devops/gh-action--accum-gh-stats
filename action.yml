@@ -286,6 +286,7 @@ runs:
           COMMIT_MESSAGE="$COMMIT_MESSAGE #$GITHUB_RUN_NUMBER:"
         fi
         COMMIT_MESSAGE="$COMMIT_MESSAGE ${COMMIT_MESSAGE_PREFIX}${COMMIT_MESSAGE_SUFFIX:+" | "}$COMMIT_MESSAGE_SUFFIX"
+        git status
         git commit -m "$COMMIT_MESSAGE"
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
           "HEAD_COMMIT_HASH=$(git rev-parse HEAD)"
