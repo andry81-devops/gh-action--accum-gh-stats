@@ -105,6 +105,7 @@ inputs:
     #   ENABLE_COMMIT_MESSAGE_DATE_TIME_WITH_LAST_CHANGED_DATE_OFFSET=1   # insert datetime suffix as offset to the last changed date in format `-DDT` to note the closest changed date
     #   ENABLE_COMMIT_MESSAGE_WITH_WORKFLOW_RUN_NUMBER=1                  # insert the workflow run number after date/time prefix in each commit message
     #   ENABLE_GITHUB_ACTIONS_RUN_URL_PRINT_TO_CHANGELOG=1
+    #   ENABLE_REPO_STATS_COMMITS_URL_PRINT_TO_CHANGELOG=1
     #   CONTINUE_ON_INVALID_INPUT=1
     #   CONTINUE_ON_EMPTY_CHANGES=1
     #   CONTINUE_ON_RESIDUAL_CHANGES=1
@@ -174,7 +175,8 @@ runs:
         INPUT_ENV="${INPUT_ENV//[$'\n\r']/}" # remove all line returns
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
           ${INPUT_ENV} \
-          "GHWF_GITHUB_ACTIONS_RUN_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          "GHWF_GITHUB_ACTIONS_RUN_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+          "GHWF_REPO_STATS_COMMITS_URL=https://github.com/${{ github.repository }}/commits?branch=${{ inputs.output_repo_branch }}"
 
     - name: variables validation
       shell: bash
@@ -296,7 +298,7 @@ runs:
         directory:    gh-stats
         github_token: ${{ inputs.output_repo_write_token }}
 
-    - name: print commit parameters
+    - name: print commit parameters into pipeline log only
       shell: bash
       run: |
         $GH_WORKFLOW_ROOT/bash/github/print-notice.sh \
