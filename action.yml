@@ -113,9 +113,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: load `flags` parameter into `GH_WORKFLOW_FLAGS` environment variable
+    - name: '[accum-gh-stats][01] load `flags` parameter into `GH_WORKFLOW_FLAGS` environment variable'
       shell: bash
       run: |
+        ### [accum-gh-stats][01] load `flags` parameter into `GH_WORKFLOW_FLAGS` environment variable
         # suppress not zero exit code
         { IFS=$' \t' read -r -d '' GH_WORKFLOW_FLAGS || (( 1 )); } <<::EOF::
         ${{ inputs.flags }}
@@ -123,9 +124,10 @@ runs:
         GH_WORKFLOW_FLAGS="${GH_WORKFLOW_FLAGS//[$'\n\r']/}" # remove all line returns
         echo "GH_WORKFLOW_FLAGS=$GH_WORKFLOW_FLAGS" >> $GITHUB_ENV
 
-    - name: print initial environment variables
+    - name: '[accum-gh-stats][02] print initial environment variables'
       shell: bash
       run: |
+        ### [accum-gh-stats][02] print initial environment variables
         eval __flags__=($GH_WORKFLOW_FLAGS)
         for arg in "${__flags__[@]}"; do
           # suppress not zero exit code
@@ -142,12 +144,13 @@ runs:
         done
 
     # step is required to workaround variable expansion in variables
-    - name: declare dependent variables
+    - name: '[accum-gh-stats][03] declare dependent variables'
       shell: bash
       run: |
+        ### [accum-gh-stats][03] declare dependent variables
         echo "GH_WORKFLOW_ROOT=$GITHUB_WORKSPACE/gh-workflow" >> $GITHUB_ENV
 
-    - name: checkout gh-workflow@${{ inputs.deps_repo_branch }}
+    - name: '[accum-gh-stats][04] checkout gh-workflow@${{ inputs.deps_repo_branch }}'
       uses: andry81-devops/gh-action--git-checkout@master
       with:
         repository: ${{ inputs.deps_repo_owner }}/gh-workflow
@@ -158,16 +161,18 @@ runs:
         mkdir-p: >-
           ${{ env.GH_WORKFLOW_ROOT }}
 
-    - name: update permissions
+    - name: '[accum-gh-stats][05] update permissions'
       shell: bash
       run: |
+        ### [accum-gh-stats][05] update permissions
         chmod ug+x $GH_WORKFLOW_ROOT/bash/_common/update-permissions.sh
         $GH_WORKFLOW_ROOT/bash/_common/update-permissions.sh ug+x "$GH_WORKFLOW_ROOT/bash" -iname '*.sh'
 
     # step is required to pass environment variables externally
-    - name: declare variables from lists
+    - name: '[accum-gh-stats][06] declare variables from lists'
       shell: bash
       run: |
+        ### [accum-gh-stats][06] declare variables from lists
         # suppress not zero exit code
         { IFS=$' \t' read -r -d '' INPUT_ENV || (( 1 )); } <<::EOF::
         ${{ inputs.env }}
@@ -178,15 +183,17 @@ runs:
           "GHWF_GITHUB_ACTIONS_RUN_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
           "GHWF_REPO_STATS_COMMITS_URL=https://github.com/${{ github.repository }}/commits?branch=${{ inputs.output_repo_branch }}"
 
-    - name: variables validation
+    - name: '[accum-gh-stats][07] variables validation'
       shell: bash
       run: |
+        ### [accum-gh-stats][07] variables validation
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
           "CHANGELOG_FILE=${CHANGELOG_FILE:-"changelog.txt"}"
 
-    - name: declare local variables
+    - name: '[accum-gh-stats][08] declare local variables'
       shell: bash
       run: |
+        ### [accum-gh-stats][08] declare local variables
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
           "changelog_file=$CHANGELOG_FILE" \
           "CHANGELOG_FILE=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/$CHANGELOG_FILE" \
@@ -195,33 +202,37 @@ runs:
           "stats_dir=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}" \
           "stats_json=$GITHUB_WORKSPACE/gh-stats/${{ inputs.output_repo_dir }}/latest.json"
 
-    - name: variables validation
+    - name: '[accum-gh-stats][09] variables validation'
       shell: bash
       run: |
+        ### [accum-gh-stats][09] variables validation
         case "$stat_entity" in
           "views")  $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh "stat_entity_path=traffic/views";;
           "clones") $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh "stat_entity_path=traffic/clones";;
           *) $GH_WORKFLOW_ROOT/bash/github/print-error.sh "\`stat_entity\` input parameter is invalid: \`$stat_entity\`"; exit 255;;
         esac
 
-    - name: declare local variables
+    - name: '[accum-gh-stats][10] declare local variables'
       shell: bash
       run: |
+        ### [accum-gh-stats][10] declare local variables
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
           "changelog_dir=${CHANGELOG_FILE%/*}"
 
-    - name: allocate directories
+    - name: '[accum-gh-stats][11] allocate directories'
       shell: bash
       run: |
+        ### [accum-gh-stats][11] allocate directories
         # for details: https://docs.github.com/en/actions/learn-github-actions/contexts#runner-context
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
           "TEMP_DIR=${{ runner.temp }}/accum-stats"
         $GH_WORKFLOW_ROOT/bash/github/eval-from-args.sh -Ep \
           'mkdir -p "$TEMP_DIR"'
 
-    - name: head annotations
+    - name: '[accum-gh-stats][12] head annotations'
       shell: bash
       run: |
+        ### [accum-gh-stats][12] head annotations
         $GH_WORKFLOW_ROOT/bash/github/print-notice.sh \
           "stat repo: https://github.com/${{ inputs.stat_repo_owner }}/${{ inputs.stat_repo }}" \
           "output repo dir: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/tree/${{ inputs.output_repo_branch }}/${{ inputs.output_repo_dir }}"
@@ -229,7 +240,7 @@ runs:
           "changelog file: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/tree/${{ inputs.output_repo_branch }}/${{ inputs.output_repo_dir }}/$changelog_file" \
           "env:"$'\n'"  GITHUB_RUN_ID=\`$GITHUB_RUN_ID\`"$'\n'"  GITHUB_RUN_NUMBER=\`$GITHUB_RUN_NUMBER\`"
 
-    - name: checkout gh-stats@${{ inputs.output_repo_branch }}
+    - name: '[accum-gh-stats][13] checkout gh-stats@${{ inputs.output_repo_branch }}'
       uses: andry81-devops/gh-action--git-checkout@master
       with:
         repository: ${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}
@@ -241,9 +252,10 @@ runs:
           ${{ inputs.output_repo_dir }}
           ${{ env.changelog_dir }}
 
-    - name: 'request `${{ inputs.stat_entity }}` json'
+    - name: '[accum-gh-stats][14] request `${{ inputs.stat_entity }}` json'
       shell: bash
       run: |
+        ### [accum-gh-stats][14] request `${{ inputs.stat_entity }}` json
         # CAUTION:
         #   The `sed` has to be used to ignore blank lines by replacing `CR` by `LF`.
         #   This is required for uniform parse the curl output in both verbose or non verbose mode.
@@ -267,16 +279,18 @@ runs:
           fi
         fi
 
-    - name: 'accumulate `${{ inputs.stat_entity }}`'
+    - name: '[accum-gh-stats][15] accumulate `${{ inputs.stat_entity }}`'
       id: accum-stats
       shell: bash
       run: |
+        ### [accum-gh-stats][15] accumulate `${{ inputs.stat_entity }}`
         $GH_WORKFLOW_ROOT/bash/github/accum-stats.sh
         # caution: no operation after that line if non zero exit code happens above
 
-    - name: commit gh-stats
+    - name: '[accum-gh-stats][16] commit gh-stats'
       shell: bash
       run: |
+        ### [accum-gh-stats][16] commit gh-stats
         cd $GITHUB_WORKSPACE/gh-stats
         git add .
         git config --global user.name "GitHub Action"
@@ -291,7 +305,7 @@ runs:
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
           "HEAD_COMMIT_HASH=$(git rev-parse HEAD)"
 
-    - name: push gh-stats
+    - name: '[accum-gh-stats][17] push gh-stats'
       uses: ad-m/github-push-action@master
       with:
         repository:   ${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}
@@ -299,14 +313,16 @@ runs:
         directory:    gh-stats
         github_token: ${{ inputs.output_repo_write_token }}
 
-    - name: print commit parameters into pipeline log only
+    - name: '[accum-gh-stats][18] print commit parameters into pipeline log only'
       shell: bash
       run: |
+        ### [accum-gh-stats][18] print commit parameters into pipeline log only
         $GH_WORKFLOW_ROOT/bash/github/print-notice.sh \
           "commit reference url: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/commit/$HEAD_COMMIT_HASH"
 
-    - name: flush print annotations
+    - name: '[accum-gh-stats][19] flush print annotations'
       if: always()
       shell: bash
       run: |
+        ### [accum-gh-stats][19] flush print annotations
         $GH_WORKFLOW_ROOT/bash/github/flush-print-annotations.sh

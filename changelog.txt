@@ -1,4 +1,7 @@
 2023.07.03:
+* changed: action.yml: added `[<workflow-name>][<step-number>]` as a prefix in all step names and duplicated it with the step name in the first comment line in all scripts to identify each step in a common pipeline log
+
+2023.07.03:
 * changed: action.yml: added `git status` to dump list of ready to commit statistic output files
 
 2023.07.02:
