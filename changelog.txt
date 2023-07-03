@@ -1,3 +1,6 @@
+2023.07.04:
+* fixed: action.yml: incorrect `GHWF_REPO_STATS_COMMITS_URL` variable value
+
 2023.07.03:
 * changed: action.yml: added `[<workflow-name>][<step-number>]` as a prefix in all step names and duplicated it with the step name in the first comment line in all scripts to identify each step in a common pipeline log
 
