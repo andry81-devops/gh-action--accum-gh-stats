@@ -2,7 +2,7 @@
 #
 
 name: accum-gh-stats
-description: 'GitHub composite action to request and accumulate a repository clones and/or views statistic'
+description: 'GitHub composite action to request and accumulate a repository clones/views statistic'
 
 inputs:
   deps_repo_owner:
