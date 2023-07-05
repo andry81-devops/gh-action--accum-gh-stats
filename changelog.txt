@@ -1,4 +1,7 @@
 2023.07.05:
+* changed: README.md: known issues link address change
+
+2023.07.05:
 * changed: README.md: description update
 
 2023.07.04:
