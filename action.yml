@@ -4,6 +4,10 @@
 name: accum-gh-stats
 description: 'GitHub composite action to request and accumulate a repository clones/views statistic'
 
+branding:
+  icon:  download
+  color: red
+
 inputs:
   deps_repo_owner:
     description: 'Owner of a repository used to checkout dependencies'

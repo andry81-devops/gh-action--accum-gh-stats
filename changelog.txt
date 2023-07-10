@@ -1,4 +1,7 @@
 2023.07.10:
+* new: action.yml: branding values
+
+2023.07.10:
 * changed: README.md: missed change
 
 2023.07.05:
