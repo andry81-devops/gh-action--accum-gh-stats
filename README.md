@@ -45,7 +45,7 @@
 <p align="center">
   <a href="https://github.com/andry81-devops/gh-action--accum-gh-stats/tree/HEAD/userlog.md">Userlog</a>
 • <a href="https://github.com/andry81-devops/gh-action--accum-gh-stats/tree/HEAD/changelog.txt">Changelog</a>
-• <a href="#dependecies">Dependencies</a>
+• <a href="#dependencies">Dependencies</a>
 • <a href="#known-issues">Known issues</a>
 • <a href="#copyright-and-license"><img src="https://github.com/andry81-cache/gh-content-static-cache/raw/master/common/badges/license/mit-license.svg" valign="middle" alt="copyright and license" />&nbsp;Copyright and License</a>
 </p>
