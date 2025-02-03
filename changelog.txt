@@ -1,3 +1,8 @@
+2025.02.03:
+* changed: README.md: github markdown blockquotes update
+* changed: README.md: repo links update
+* refactor: README.md: minor refactor
+
 2023.07.10:
 * new: action.yml: branding values
 
