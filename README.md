@@ -104,6 +104,12 @@ All tutorials: https://github.com/andry81/index#tutorials
   > The actual hash of the commit can not be know on the moment of the commit. So instead of the commit hash, an approximate date of the commit is used (~ +5 min ahead) in format of:
   > `https://github.com/{{REPO_OWNER}}/{{REPO}}--gh-stats/commits?branch={{BRANCH}}&time_zone=utc&until=YYYY-MM-DD`
 
+* `YAML_OUTPUT_LR=<%-encoded string>`:
+  Adds characters to each line end of yaml output file (last LF can be omitted).
+
+* `CHANGELOG_FILE_LR=<%-encoded string>`:
+  Adds characters to each line end of changelog output file (last LF can be omitted).
+
 # USAGE
 
 > [!WARNING]
@@ -168,6 +174,8 @@ jobs:
           #  CONTINUE_ON_EMPTY_CHANGES=1
           #  CONTINUE_ON_RESIDUAL_CHANGES=1
           #  CHANGELOG_FILE=changelog.txt
+          #  YAML_OUTPUT_LR=%0D
+          #  CHANGELOG_FILE_LR=%0D
 ```
 
 <a name="accum-gh-view-stats-yml">`.github/workflows/accum-gh-view-stats.yml`</a>:
@@ -223,6 +231,8 @@ jobs:
           #  CONTINUE_ON_EMPTY_CHANGES=1
           #  CONTINUE_ON_RESIDUAL_CHANGES=1
           #  CHANGELOG_FILE=changelog.txt
+          #  YAML_OUTPUT_LR=%0D
+          #  CHANGELOG_FILE_LR=%0D
 ```
 
 > [!NOTE]
